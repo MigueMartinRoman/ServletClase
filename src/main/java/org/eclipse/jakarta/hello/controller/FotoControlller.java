@@ -45,7 +45,6 @@ public class FotoControlller extends HttpServlet {
         }
     }
 
-
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         /*File directorioFotos = new File("C:\\Users\\Migue\\DAW 2023-2024\\Entorno Servidor\\jakartaee-hello-world\\src\\main\\webapp\\upload");
 
@@ -85,6 +84,9 @@ public class FotoControlller extends HttpServlet {
             request.getRequestDispatcher("fotos.jsp").forward(request, response);
         } catch (Exception ignored) {}
     }
+
+
+
 
 
 }
