@@ -75,11 +75,12 @@ public class FotoControlller extends HttpServlet {
             HttpSession httpSession = request.getSession();
             String autenticado = (String)httpSession.getAttribute("autenticado");
 
+            String politecnic = properties.getProperty("politecnic.prova");
+
+            List<Foto> fotos =fotosService.findAll();
+
             if(autenticado!=null && autenticado.equals("SI")) {
-
-                String politecnic = properties.getProperty("politecnic.prova");
-
-                List<Foto> fotos = fotosService.findAll();
+                fotos = fotos.stream().filter(f->!f.getPrivada()).toList();
 
                 //request.setAttribute("pictures",fotos.get(0));
                 request.setAttribute("pictures", fotos);

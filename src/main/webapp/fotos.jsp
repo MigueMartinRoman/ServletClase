@@ -23,7 +23,9 @@
 <img src="${picture.url}" alt="${picture.descripcion}">
 
 <c:forEach items="${pictures}" var="f">
-    <c:if test="${!f.privada}"><img src="${f.url}" alt="${f.descripcion}" width="160px" height="140px"></c:if>
+    <!--<c:if test="${!f.privada}"> -->
+    <img src="${f.url}" alt="${f.descripcion}" width="160px" height="140px">
+    <!--</c:if> -->
 
 </c:forEach>
 
