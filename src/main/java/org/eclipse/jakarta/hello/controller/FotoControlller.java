@@ -5,6 +5,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.eclipse.jakarta.hello.config.MysqlConnection;
 //import org.eclipse.jakarta.hello.dao.FotoDao;
 import org.eclipse.jakarta.hello.dao.FotoDaoI;
@@ -71,17 +72,25 @@ public class FotoControlller extends HttpServlet {
          */
         //ResourceBundle rb = ResourceBundle.getBundle("application");
         try {
-            String politecnic = properties.getProperty("politecnic.prova");
+            HttpSession httpSession = request.getSession();
+            String autenticado = (String)httpSession.getAttribute("autenticado");
 
-            List<Foto> fotos = fotosService.findAll();
+            if(autenticado!=null && autenticado.equals("SI")) {
 
-            //request.setAttribute("pictures",fotos.get(0));
-            request.setAttribute("pictures", fotos);
-            // recuperamos param titulo y usamos en fotos.jsp
-            request.setAttribute("titulo", politecnic);
-            //request.setAttribute("titulo", rb.getString("politecnic.prova"));
-            // Patrón Dispatcher
-            request.getRequestDispatcher("fotos.jsp").forward(request, response);
+                String politecnic = properties.getProperty("politecnic.prova");
+
+                List<Foto> fotos = fotosService.findAll();
+
+                //request.setAttribute("pictures",fotos.get(0));
+                request.setAttribute("pictures", fotos);
+                // recuperamos param titulo y usamos en fotos.jsp
+                request.setAttribute("titulo", politecnic);
+                //request.setAttribute("titulo", rb.getString("politecnic.prova"));
+                // Patrón Dispatcher
+                request.getRequestDispatcher("fotos.jsp").forward(request, response);
+            } else {
+                response.sendError(401,"Usuario no autorizado");
+            }
         } catch (Exception ignored) {}
     }
 
