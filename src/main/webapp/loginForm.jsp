@@ -23,6 +23,9 @@
         Password
         <input type="password" name="password" placeholder="1234">
     </label>
+    <label>Recordar Usuario</label>
+    <input type="checkbox" name="remember" value="true">
+
     <input type="submit" value="Entrar">
 </form>
 </body>
