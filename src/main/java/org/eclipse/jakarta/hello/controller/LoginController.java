@@ -12,6 +12,7 @@ import org.eclipse.jakarta.hello.service.UsuarioServiceI;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @WebServlet(name="LoginControllerServlet",urlPatterns = "/login")
 public class LoginController extends HttpServlet {
@@ -42,9 +43,11 @@ public class LoginController extends HttpServlet {
                 HttpSession session = req.getSession();
                 session.setAttribute("usuario", usuario);
                 session.setAttribute("autenticado", "SI");
-                session.setAttribute("Lastactivity", LocalDate.now());
+                session.setAttribute("lastactivity", LocalDateTime.now());
+
                 if (remember != null && remember.equals("true")){
-                    Cookie rememberCookie = new Cookie("remember", "SI");
+                    //Cookie rememberCookie = new Cookie("remember", "SI");
+                    Cookie rememberCookie = new Cookie("remember", usuario.getNombre());
                     rememberCookie.setMaxAge(60 * 60 * 24 * 365);
                     res.addCookie(rememberCookie);
                 }
